@@ -1,0 +1,120 @@
+﻿@model Bothniabladet.Models.ImageModels.CreateImageCommand
+
+@{
+    ViewData["Title"] = "Create";
+
+    @functions{
+        public void OnGet()
+        {
+            //could possibly load the selection options from db here
+        }
+    }
+
+}
+<h1>Upload a picture</h1>
+
+<hr />
+<div class="row justify-content-start">
+    <div class="col-md-6">
+        <form asp-action="Create"
+              asp-controller="Images"
+              method="post"
+              enctype="multipart/form-data">
+
+
+
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputImageAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" asp-for="ImageData.FormFile" class="custom-file-input" id="inputImage1" aria-describedby="inputImageAddon01">
+                    <label class="custom-file-label" for="inputImage1" asp-validation-for="ImageData.FormFile">Choose File...</label>
+                </div>
+                <div class="invalid-feedback" asp-validation-summary="ModelOnly">
+                    Filen du försökte ladda upp är inte en giltig bildfil.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageTitle" class="control-label">Image name</label>
+                <input type="text" asp-for="ImageTitle" class="form-control" placeholder="T.ex. The king" />
+                <span asp-validation-for="ImageTitle" class="text-danger"></span>
+            </div>
+
+
+            <label asp-for="BasePrice" class="control-label">Price</label>
+            <div class="input-group mb-3">
+                <input type="number" value="200" asp-for="BasePrice" class="form-control" />
+                <span asp-validation-for="BasePrice" class="text-danger"></span>
+                <div class="input-group-append">
+                    <span class="input-group-text">SEK</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issue" class="control-label">release</label>
+                <input type="date" asp-for="Issue" value="" class="form-control" max="2030-12-31" min="1979-12-31" />
+                <span asp-validation-for="Issue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Section" class="control-label"></label>
+                <select asp-for="Section" asp-items="Model.Sections" class="form-control"></select>
+                <span asp-validation-for="Section" class="text-danger"></span>
+            </div>
+            
+            <input type="text" style="display:none" asp-for="Keywords" class="form-control" id="Keywords" />
+
+            <div class="form-group">
+                <label for="keywords" class="control-label">Tags: (separate with space)</label>
+                <div id="keyword_parent"></div>
+                <span class="badge badge-pill badge-primary"></span>
+                <input type="text" id="keyword_field" value="" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" /> |
+                <a class="btn btn-primary", href='javascript:history.go(-1)'>Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- JS library includes -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        bsCustomFileInput.init()
+        let keywords = [];
+        const keywordField = document.getElementById('keyword_field')
+        const keywordParent = document.getElementById('keyword_parent')
+        const keywordToForm = document.getElementById('Keywords')
+        keywordField.addEventListener('input', (e) => {
+            console.log(keywords)
+            let inputString = keywordField.value
+            if (e.data === " ") {
+                inputString = inputString.trim()
+                createPillBadge(keywordParent, inputString)
+                keywords.push(inputString)
+                keywordToForm.value = keywords.join()
+                inputString = null
+                keywordField.value = null
+            }
+            
+        })
+    });
+    function createPillBadge(keywordParent, word){
+        let span = document.createElement("span")
+        span.className = "badge badge-pill badge-primary";
+        let text = document.createTextNode(word)
+        span.appendChild(text)
+        keywordParent.appendChild(span)
+    };
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

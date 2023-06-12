@@ -1,0 +1,70 @@
+﻿@model Bothniabladet.Models.Checkout.ReceiptModel
+
+@{
+    ViewData["Title"] = "Kvitto";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>@ViewData["Title"]</h1>
+            <hr />
+        </div>
+    </div>
+
+    @if (Model == null)
+    {
+        <div class="alert alert-danger">Receipt information is not available.</div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-8">
+                <h4><u>Customer information</u></h4>
+                <p><b>Name:</b> @Model.CustomerName</p>
+                <p><b>Email:</b> @Model.CustomerEmail</p>
+                <p><b>Address:</b> @Model.CustomerAddress</p>
+            </div>
+
+            <div class="col-4">
+                <h4><u>Receipt information</u></h4>
+                <p><b>Receiptoid:</b> @Model.ReceiptId</p>
+                <p><b>Date of purchase:</b> @Model.PurchaseDate</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h4><u>Purchased products</u></h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product id</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.PurchasedItems != null)
+                        {
+                            foreach (var item in Model.PurchasedItems)
+                            {
+                                <tr>
+                                    <td>@item.ProductId</td>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.Price</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h4><u>Total amount:</u> @Model.TotalAmount</h4>
+            </div>
+        </div>
+    }
+</div>

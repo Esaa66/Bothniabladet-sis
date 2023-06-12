@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Bothniabladet.Models.ImageModels.ImageSummaryViewModel>
+
+<div class="container">
+    <div class="row justify-content-center">
+        @foreach (var item in Model)
+        {
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow">
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <img src="@item.ImageDataString" class="card-img-top" alt="">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <hr />
+                    <p class="card-text">
+                        <small class="text-muted">@Html.DisplayFor(modelItem => item.Section) - @Html.DisplayFor(modelItem => item.Date)</small><br>
+                        @foreach (String keyword in item.Keywords)
+                        {
+                            <span class="badge bg-primary text-white mr-1">
+                                @keyword
+                            </span>
+                        }
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="card-link">Redigera</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="card-link text-danger">Radera</a>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

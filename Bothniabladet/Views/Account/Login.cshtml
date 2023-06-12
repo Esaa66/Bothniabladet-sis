@@ -1,0 +1,52 @@
+﻿
+@model LoginModel
+
+@{
+    Layout = "_loginLayout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center mt-5">
+            <h1>Welcome to Bothniabladet</h1>
+            <p class="lead">Your trusted source for daily news.</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="p-4 border bg-light">
+                <h3>Login</h3>
+                <form asp-controller="Account" asp-action="Login" method="post">
+                    <div class="form-group">
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" placeholder="E-mail" class="form-control" />
+                        <span asp-validation-for="Email" class="validation-summary-errors"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password">Password</label>
+                        <input asp-for="Password" placeholder="Lösenord" class="form-control" />
+                        <span asp-validation-for="Password" class="validation-summary-errors"></span>
+                    </div>
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <div class="form-group">
+                        <button class="btn btn-primary">Logga in</button>
+                    </div>
+                    <p>Not a member? <a asp-controller="Account" asp-action="Register">Create Account</a></p>
+                    <p>Forgot your password? <a asp-controller="Account" asp-action="ForgotPassword">Reset Password</a></p>
+                    <h5 class="login-error">@ViewBag.Message</h5>
+                </form>
+                
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-4 border bg-light">
+                <h3>About Us</h3>
+                <p>
+                    Bothniabladet is a leading news provider dedicated to delivering timely and relevant news to our readers.
+                    We are committed to maintaining high standards of journalism and providing our readers with in-depth analysis of the issues that matter most.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

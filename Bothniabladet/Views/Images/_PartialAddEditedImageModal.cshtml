@@ -1,0 +1,40 @@
+﻿@*For more information on modal see: https://www.w3schools.com/bootstrap/bootstrap_modal.asp*@
+@*I used the bootstrap modal for this project*@
+
+@model Bothniabladet.Models.ImageModels.ImageDetailViewModel
+
+<div class="container">
+    <div class="modal fade" id="AddEditedImageModal" tabindex="-1" aria-labelledby="AddEditedImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddEditedImageModalLabel">Lägg till bild</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="AddEdited" asp-controller="Images" method="post" enctype="multipart/form-data">
+                        <input asp-for="CreateEditedImage.OriginalId" type="hidden" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <label asp-for="CreateEditedImage.ImageData.FormFile" class="form-label">Upload file</label>
+                            <input asp-for="CreateEditedImage.ImageData.FormFile" type="file" class="form-control" />
+                            <span asp-validation-for="CreateEditedImage.ImageData.FormFile" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CreateEditedImage.ImageTitle" class="form-label">Enter the name of the image</label>
+                            <input asp-for="CreateEditedImage.ImageTitle" class="form-control" />
+                            <span asp-validation-for="CreateEditedImage.ImageTitle" class="text-danger"></span>
+                        </div>
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="modal-footer">
+                            <button type="submit" value="AddEdited" class="btn btn-primary">Lägg till bild</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

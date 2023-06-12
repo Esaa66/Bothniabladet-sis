@@ -1,0 +1,58 @@
+﻿@model RegisterViewModel
+
+@{
+    Layout = "_loginLayout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center mt-5">
+            <h1>Welcome to Bothniabladet</h1>
+            <p class="lead">Join our community for daily news.</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="p-4 border bg-light">
+                <h3>Register</h3>
+                <form asp-controller="Account" asp-action="Register" method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group">
+                        <label asp-for="UserName">Username</label>
+                        <input asp-for="UserName" placeholder="User name" class="form-control" />
+                        <span asp-validation-for="UserName" class="validation-summary-errors"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" placeholder="E-mail" class="form-control" />
+                        <span asp-validation-for="Email" class="validation-summary-errors"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password">Password</label>
+                        <input asp-for="Password" placeholder="Password (at least 6 characters)" class="form-control" />
+                        <span asp-validation-for="Password" class="validation-summary-errors"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" placeholder="Repeat password" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="validation-summary-errors"></span>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Register</button>
+                    </div>
+                    <p>Already a member? <a asp-controller="Account" asp-action="Login">Login</a></p>
+                    <h5>@ViewBag.Message</h5>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-4 border bg-light">
+                <h3>About Bothniabladet</h3>
+                <p>
+                    Become part of our community at Bothniabladet, your trusted news source. Get access to daily news updates, interact with other readers, and share your thoughts on pressing issues.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
